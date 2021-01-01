@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="javaee8PU">
+   	 <jta-data-source>java:comp/DefaultDataSource</jta-data-source>
+   	 <class>com.javabullets.java9.entity.Event</class>
+   	 <class>com.javabullets.java9.entity.Entrant</class>
+   	 <properties>
+   		 <!-- allow table definitions/creation on-the-fly jpa-2.0 feature -->
+   		 <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" />
+   		 <!-- allow table definitions/creation on-the-fly jpa-2.1 feature -->
+   		 <property name="eclipselink.ddl-generation" value="create-tables"/>
+   		 <!-- property name="eclipselink.ddl-generation" value="none"/-->
+   	 </properties>
+    </persistence-unit>
+</persistence>

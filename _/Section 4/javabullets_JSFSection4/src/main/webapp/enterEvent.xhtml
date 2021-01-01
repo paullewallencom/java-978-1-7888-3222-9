@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Hands On Enterprise Application Development with Java 9</title>
+    </h:head>
+
+    <h:body>
+        <h1>Enter Marathons Online</h1>
+        <h2>#{enterEventController.eventBean.event.getName()}</h2>
+        <br />
+
+        <div class="ui-g">
+            <div class="ui-g-6">id</div>
+            <div class="ui-g-6">#{enterEventController.eventBean.event.getId()}</div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">Event Date and Time</div>
+            <div class="ui-g-6">
+                <h:outputText value="#{enterEventController.eventBean.event.eventDateTime}" >
+                    <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm" />
+                </h:outputText>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">Location</div>
+            <div class="ui-g-6">
+                #{enterEventController.eventBean.event.getLocation()},
+                #{enterEventController.eventBean.event.getCountry()}</div>
+        </div>
+
+        <p:separator />
+
+        <h:form>
+            <p:panel id="enterRacePanel" header="Enter Race">
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <p:outputLabel value="forename" for="forename" />
+                    <p:inputText id="forename" label="Forename"
+                                 value="#{enterEventController.eventBean.entrant.forename}"
+                                 required="true" requiredMessage="You must supply a forename" />
+                    <p:message for="forename" />
+
+                    <p:outputLabel value="surname" for="surname" />
+                    <p:inputText id="surname" label="Surname"
+                                 value="#{enterEventController.eventBean.entrant.surname}"
+                                 required="true" requiredMessage="You must supply a surname" />
+                    <p:message for="surname" />
+
+                    <p:outputLabel value="sex" for="sex" />
+                    <p:selectOneMenu id="sex" label="Sex"
+                                     value="#{enterEventController.eventBean.entrant.sex}">
+                        <f:selectItems value="#{enterEventController.sexes}" />
+                    </p:selectOneMenu>
+                    <p:message for="sex" />
+
+                    <p:outputLabel value="age" for="age" />
+                    <p:inputText id="age" label="Age"
+                                 value="#{enterEventController.eventBean.entrant.age}"
+                                 converterMessage="Please enter digits only." required="true" maxlength="3">
+                        <f:validateLongRange minimum="18" maximum="105" />
+                    </p:inputText>
+                    <p:message for="age" />
+
+                </h:panelGrid>
+
+                <br />
+
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <p:outputLabel value="Type" />
+                    <p:selectOneMenu id="creditCardType" 
+                                     value="#{enterEventController.creditCardBean.cardType}">
+                        <f:selectItems value="#{enterEventController.creditCardBean.cardMap}" />
+                    </p:selectOneMenu>
+                    <p:message for="creditCardType" />
+
+
+                    <p:outputLabel value="Credit Card Number" for="creditCardNumber" />
+                    <p:inputText id="creditCardNumber" label="Credit Card Number" 
+                                 value="#{enterEventController.creditCardBean.cardNumber}" 
+                                 required="true"
+                                 maxlength="16" >
+                        <f:validateRegex pattern="[0-9]{16}" />
+                    </p:inputText>
+                    
+                    <p:message for="creditCardNumber" />
+
+                    <p:outputLabel value="Month/Year" />
+                    <p:selectOneMenu id="month" 
+                                     value="#{enterEventController.creditCardBean.month}">
+                        <f:selectItems value="#{enterEventController.creditCardBean.monthsMap}" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu id="year"
+                                     value="#{enterEventController.creditCardBean.year}">
+                        <f:selectItems value="#{enterEventController.creditCardBean.yearMap}" />
+                    </p:selectOneMenu>
+                    
+                </h:panelGrid>
+
+                <br />
+
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <p:commandButton action="#{enterEventController.index()}"
+                                     value="Home" immediate="true" />
+                    <p:commandButton action="#{enterEventController.create}"
+                                     value="Enter Race" update="enterRacePanel" />
+
+                </h:panelGrid>
+
+            </p:panel>
+
+        </h:form>
+        <br />
+
+
+    </h:body>
+</html>
